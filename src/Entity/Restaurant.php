@@ -26,6 +26,12 @@ class Restaurant
      */
     private $description;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\City", inversedBy="restaurants")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $city;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -51,6 +57,18 @@ class Restaurant
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getCity(): ?City
+    {
+        return $this->city;
+    }
+
+    public function setCity(?City $city): self
+    {
+        $this->city = $city;
 
         return $this;
     }
