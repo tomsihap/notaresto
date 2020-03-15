@@ -44,6 +44,11 @@ class Restaurant
      */
     private $reviews;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
     public function __construct()
     {
         $this->restaurantPictures = new ArrayCollection();
@@ -149,6 +154,18 @@ class Restaurant
                 $review->setRestaurant(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }
