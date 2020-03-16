@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AppController!{% endblock %}
+
+{% block body %}
+
+
+    <ul>
+        {% for restaurant in restaurants %}
+            <li>
+                {{ restaurant.name }} <br>
+                <small>{{ restaurant.description }}</small>
+            </li>
+        {% endfor %}
+
+    </ul>
+
+
+{% endblock %}
