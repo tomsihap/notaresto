@@ -21,6 +21,10 @@ class City
     /**
      * @ORM\Column(type="string", length=255)
      */
+    private $country;
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
     private $name;
 
     /**
@@ -36,6 +40,17 @@ class City
     public function __construct()
     {
         $this->restaurants = new ArrayCollection();
+    }
+
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    public function setCountry(string $country): self
+    {
+        $this->country = $country;
+        return $this;
     }
 
     public function getId(): ?int
