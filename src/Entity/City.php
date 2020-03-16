@@ -53,10 +53,6 @@ class City
         return $this;
     }
 
-    public function getCountryUppercase() {
-        return ucfirst( $this->getCountry() );
-    }
-
     public function getId(): ?int
     {
         return $this->id;
