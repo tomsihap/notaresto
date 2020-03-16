@@ -49,6 +49,7 @@ class ReviewController extends AbstractController
     /**
      * Supprime une review
      * @Route("/review/{review}", name="review_delete", methods={"DELETE"})
+     * @param Review $review
      */
     public function delete(Review $review)
     {
