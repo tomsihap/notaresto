@@ -170,4 +170,18 @@ class Restaurant
 
         return $this;
     }
+
+    public function getAverageRating() : float
+    {
+
+        $sum = 0;
+        $total = 0;
+
+        foreach($this->getReviews() as $review) {
+            $sum += $review->getRating();
+            $total++;
+        }
+
+        return $sum/$total;
+    }
 }

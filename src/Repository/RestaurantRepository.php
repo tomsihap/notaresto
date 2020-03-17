@@ -20,6 +20,7 @@ class RestaurantRepository extends ServiceEntityRepository
     }
 
     public function findLastTenElements() {
+
         return $this->createQueryBuilder('r')
             ->orderBy('r.createdAt', 'DESC')
             ->setMaxResults(10)
