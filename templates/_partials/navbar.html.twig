@@ -1,0 +1,61 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="{{ path('app_index') }}">NotaResto</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Restaurants
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ path('restaurant_index') }}">Voir mes restaurants</a>
+                    <a class="dropdown-item" href="{{ path('restaurant_index') }}">Voir tous les restaurants</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ path('restaurant_new') }}">Créer un restaurant</a>
+                </div>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Utilisateurs
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ path('user_index') }}">Voir tous les utilisateurs</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+
+    <div class="collapse navbar-collapse justify-content-end">
+    <ul class="navbar-nav ml-auto">
+
+        <form class="form-inline my-2 my-lg-0" method="get" action="{{ path('app_search') }}">
+            <input name="zipcode" class="form-control form-control-sm mr-sm-2" type="search" placeholder="Code postal..." aria-label="Search">
+            <button class="btn btn-outline-primary btn-sm my-2 my-sm-0" type="submit">Rechercher</button>
+        </form>
+        {% if app.user %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_index') }}" tabindex="-1" aria-disabled="true">Bienvenue, example@example.com !</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_logout') }}" tabindex="-1" aria-disabled="true">Déconnexion</a>
+            </li>
+        {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_login') }}" tabindex="-1" aria-disabled="true">Se connecter</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_register') }}" tabindex="-1" aria-disabled="true">Créer un compte</a>
+            </li>
+        {% endif %}
+
+
+    </ul>
+    </div>
+
+</nav>

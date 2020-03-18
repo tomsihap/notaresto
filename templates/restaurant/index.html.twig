@@ -1,20 +1,48 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello RestaurantController!{% endblock %}
+{% block title %}Liste des restaurants{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col">
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+                <table class="table">
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/Users/tomsihap/projects/notaresto/src/Controller/RestaurantController.php'|file_link(0) }}">src/Controller/RestaurantController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/Users/tomsihap/projects/notaresto/templates/restaurant/index.html.twig'|file_link(0) }}">templates/restaurant/index.html.twig</a></code></li>
-    </ul>
-</div>
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Le restaurant</th>
+                        <th>Localité</th>
+                        <th>Note</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+
+                    {% for restaurant in restaurants %}
+                        <tr>
+                            <td>{{ restaurant.id }}</td>
+                            <td>
+                                {{ restaurant.name }}
+                                <small>{{ restaurant.description }}</small>
+                            </td>
+                            <td>{{ restaurant.city.zipcode }} {{ restaurant.city.name }}</td>
+                            <td>{{ restaurant.averageRating | number_format(2, ',') }}</td>
+                            <td>
+                                <a href="{{ path("restaurant_show", {restaurant: restaurant.id}) }}">Voir</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+                {{ knp_pagination_render(restaurants) }}
+
+            </div>
+        </div>
+    </div>
 {% endblock %}

@@ -1,19 +1,49 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AppController!{% endblock %}
-
 {% block body %}
+        <section class="jumbotron text-center">
+            {% for restaurant in restaurants %}
+                {% if loop.first %}
+                    <div class="container">
+                        <h1>Notre meilleur restaurant est...</h1>
+                        <h2>{{ restaurant.name }} ! <small class="badge badge-primary">{{ restaurant.averageRating | number_format(2, ',') }} sur 5 étoiles !</small></h2>
+                        <p class="lead text-muted">
+                            {{ restaurant.description }}
+                        </p>
+                        <p>
+                            <a href="{{ path('restaurant_show', {restaurant: restaurant.id} ) }}" class="btn btn-success my-2">Donner un avis !</a>
+                        </p>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </section>
 
+        <div class="album py-5 bg-light">
+            <div class="container">
 
-    <ul>
-        {% for restaurant in restaurants %}
-            <li>
-                {{ restaurant.name }} (Moyenne de {{ restaurant.averageRating | number_format(2, ',') }})<br>
-                <small>{{ restaurant.description }}</small>
-            </li>
-        {% endfor %}
+                <div class="row">
+                    {% for restaurant in restaurants %}
+                        {% if not loop.first %}
+                            <div class="col-md-4">
+                                <div class="card mb-4 shadow-sm">
+                                    <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                                    <div class="card-body">
+                                        <p class="card-text">
+                                            <h2>{{restaurant.name}}</h2>
+                                                <small class="badge badge-primary">{{ restaurant.averageRating | number_format(2, ',') }} sur 5 étoiles !</small>
+                                                {{ restaurant.description }}
+                                        </p>
 
-    </ul>
-
+                                        <div class="d-flex justify-content-between float-right">
+                                            <a href="{{ path('restaurant_show', {restaurant: restaurant.id} ) }}" class="btn btn-sm btn-outline-secondary">Donner un avis</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
 
 {% endblock %}
