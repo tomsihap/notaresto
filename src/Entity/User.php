@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -34,6 +36,27 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\City", inversedBy="users")
+     */
+    private $city;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Review", mappedBy="user", orphanRemoval=true)
+     */
+    private $reviews;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Restaurant", mappedBy="user", orphanRemoval=true)
+     */
+    private $restaurants;
+
+    public function __construct()
+    {
+        $this->reviews = new ArrayCollection();
+        $this->restaurants = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -111,5 +134,79 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getCity(): ?City
+    {
+        return $this->city;
+    }
+
+    public function setCity(?City $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Review[]
+     */
+    public function getReviews(): Collection
+    {
+        return $this->reviews;
+    }
+
+    public function addReview(Review $review): self
+    {
+        if (!$this->reviews->contains($review)) {
+            $this->reviews[] = $review;
+            $review->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReview(Review $review): self
+    {
+        if ($this->reviews->contains($review)) {
+            $this->reviews->removeElement($review);
+            // set the owning side to null (unless already changed)
+            if ($review->getUser() === $this) {
+                $review->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Restaurant[]
+     */
+    public function getRestaurants(): Collection
+    {
+        return $this->restaurants;
+    }
+
+    public function addRestaurant(Restaurant $restaurant): self
+    {
+        if (!$this->restaurants->contains($restaurant)) {
+            $this->restaurants[] = $restaurant;
+            $restaurant->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRestaurant(Restaurant $restaurant): self
+    {
+        if ($this->restaurants->contains($restaurant)) {
+            $this->restaurants->removeElement($restaurant);
+            // set the owning side to null (unless already changed)
+            if ($restaurant->getUser() === $this) {
+                $restaurant->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }
