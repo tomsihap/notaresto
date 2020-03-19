@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des restaurants{% endblock %}
+
+{% block body %}
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-4">
+                <h2>{{ restaurant.name }}</h2>
+                <ul>
+                    <li>
+                        <strong>Localité:</strong> {{ restaurant.city.zipcode }} {{ restaurant.city.name }}
+                    </li>
+                    <li>
+                        <strong>Note moyenne :</strong> {{ restaurant.averageRating | number_format(2, ',') }}
+                    </li>
+                </ul>
+                <small>
+                    {{ restaurant.description }}
+                </small>
+                <p>
+                    <img src="https://picsum.photos/id/{{ random(1,1000) }}/800/600" alt="" width="30%" class="mb-1" data-toggle="modal" data-target="#exampleModal">
+                    <img src="https://picsum.photos/id/{{ random(1,1000) }}/800/600" alt="" width="30%" class="mb-1" data-toggle="modal" data-target="#exampleModal">
+                    <img src="https://picsum.photos/id/{{ random(1,1000) }}/800/600" alt="" width="30%" class="mb-1" data-toggle="modal" data-target="#exampleModal">
+                    <img src="https://picsum.photos/id/{{ random(1,1000) }}/800/600" alt="" width="30%" class="mb-1" data-toggle="modal" data-target="#exampleModal">
+                    <img src="https://picsum.photos/id/{{ random(1,1000) }}/800/600" alt="" width="30%" class="mb-1" data-toggle="modal" data-target="#exampleModal">
+                </p>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Titre de la photo</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <img src="https://picsum.photos/id/{{ random(1,1000) }}/800/600" alt="" width="100%">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-8">
+
+                <h2>Les avis sur ce restaurant</h2>
+                <hr>
+
+                <div class="card mb-2">
+                    <div class="card-header">
+                        Rédigez un avis sur ce restaurant !
+                    </div>
+                    <div class="card-body">
+                        <form action="">
+                            <div class="form-group">
+                                <label for="">Message</label>
+                                <textarea name="" id="" rows="3" class="form-control"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Note</label>
+                                <input type="number" min="0" max="5" class="form-control">
+                            </div>
+                            <button class="btn-sm btn-primary float-right">Envoyer</button>
+
+                        </form>
+                    </div>
+                </div>
+
+                {% for review in restaurant.reviews %}
+                    <div class="card mb-2">
+                        <div class="card-header">
+                            Rédigé par John Doe ({{ review.rating }}/5)
+                        </div>
+                        <div class="card-body">
+                            {{ review.message }}
+                        </div>
+                        <div class="card-footer">
+                            <form action="">
+                                <div class="form-group">
+                                    <label for="">Message</label>
+                                    <input type="text" class="form-control" placeholder="Répondre à cet avis...">
+                                </div>
+                                <button class="btn btn-sm btn-primary float-right">Répondre</button>
+                            </form>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

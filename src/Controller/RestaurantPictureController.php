@@ -20,7 +20,7 @@ class RestaurantPictureController extends AbstractController
 
     /**
      * Affiche le détail d'une picture
-     * @Route("/picture/{picture}", name="picture_show", methods={"GET"})
+     * @Route("/picture/{picture}", name="picture_show", methods={"GET"}, requirements={"picture"="\d+"})
      * @param RestaurantPicture $picture
      */
     public function show(RestaurantPicture $picture)

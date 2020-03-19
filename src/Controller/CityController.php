@@ -21,7 +21,7 @@ class CityController extends AbstractController
 
     /**
      * Affiche le détail d'une city
-     * @Route("/city/{city}", name="city_show", methods={"GET"})
+     * @Route("/city/{city}", name="city_show", methods={"GET"}, requirements={"city"="\d+"})
      * @param City $city
      */
     public function show(City $city)
